@@ -13,9 +13,9 @@ class DevToolsPlugin {
     compiler.options.devServer = {
       // port: 9000,
       proxy: {
-        context: ['api'],
+        context: '/',
         target: "/",
-        contentBase:resolve('./dist'),
+        contentBase: resolve("./dist"),
         compress: true,
         changeOrigin: true,
         router(req) {
@@ -24,12 +24,12 @@ class DevToolsPlugin {
             req.headers.cookie &&
               req.headers.cookie.split("; ").forEach((dataStr) => {
                 const [key, val] = dataStr.split("=");
-                if(key === '_domain'){
-                  cookieData[key] = val
+                if (key === "_domain") {
+                  cookieData[key] = val;
                 }
               });
           }
-          console.log(cookieData._domain)
+          console.log(cookieData._domain);
           return cookieData._domain;
         },
       },
@@ -50,7 +50,8 @@ class DevToolsPlugin {
     //         /\{\{_domains\}\}/g,
     //         JSON.stringify(this.options.proxyArr)
     //       );
-    //       // Tell webpack to move on
+    //       // Tell webpack to move on快乐；’
+
     //       cb(null, data);
     //     }
     //   );
@@ -59,10 +60,10 @@ class DevToolsPlugin {
     compiler.hooks.emit.tapAsync("FileListPlugin", (compilation, callback) => {
       // Create a header string for the generated file:
       const rootPath = path.resolve(__dirname, "./lib");
-      let htmlContent =  compilation.assets['index.html'].source()
+      let htmlContent = compilation.assets["index.html"].source();
 
-      compilation.assets['index.html'] = {
-        source:function(){
+      compilation.assets["index.html"] = {
+        source: function() {
           htmlContent += fs.readFileSync(
             path.resolve(__dirname, "./lib/index.html"),
             "utf-8"
@@ -71,40 +72,49 @@ class DevToolsPlugin {
             /\{\{_domains\}\}/g,
             JSON.stringify(self.options.proxyArr)
           );
-          return htmlContent
+          return htmlContent;
         },
-        size:function(){
-          return htmlContent.length
-        }
-      }
+        size: function() {
+          return htmlContent.length;
+        },
+      };
 
       const dirs = fs.readdirSync(rootPath);
-
-      dirs.forEach((dir) => {
-        fs.stat(rootPath + `/${dir}`, (err, stat) => {
+      for (const dir of dirs) {
+        let stat;
+        try {
+          stat = fs.statSync(rootPath + `/${dir}`);
+        } catch (err) {
           if (err) return;
-          if (stat.isDirectory()) {
-            // console.log(rootPath+`/${dir}`)
-            const tarDirs = fs.readdirSync(rootPath + `/${dir}`);
-            tarDirs.forEach((file) => {
-              let content = fs.readFileSync(
-                rootPath + `/${dir}/${file}`,
-                "utf-8"
-              );
-              compilation.assets[`${dir}/${file}`] = {
-                source: function () {
-                  return content;
-                },
-                size: function () {
-                  return content.length;
-                },
-              };
-            });
+        }
+        if (stat.isDirectory()) {
+          const tarDirs = fs.readdirSync(rootPath + `/${dir}`);
+          for (const file of tarDirs) {
+            let content = fs.readFileSync(
+              rootPath + `/${dir}/${file}`,
+              "utf-8"
+            );
+            compilation.assets[`${dir}/${file}`] = {
+              source: function() {
+                return content;
+              },
+              size: function() {
+                return content.length;
+              },
+            };
           }
-        });
-      });
+        }
+      }
       callback();
     });
+
+    compiler.hooks.afterEmit.tapAsync(
+      "afterEmitPlugin",
+      (compilation, callback) => {
+        console.log("--afterEmitPlugin--", Object.keys(compilation.assets));
+        callback();
+      }
+    );
   }
 }
 
