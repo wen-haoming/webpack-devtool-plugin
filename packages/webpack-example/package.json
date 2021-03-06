@@ -1,19 +1,26 @@
 {
-  "name": "webpack-example",
-  "version": "0.0.0",
-  "description": "> TODO: description",
-  "author": "wenhaoming <435203093@qq.com>",
-  "homepage": "",
-  "license": "ISC",
-  "main": "lib/webpack-example.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
+  "name": "webpack-plugin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "webpack --progress --mode=production",
+    "start": "webpack serve"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-react": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "html-webpack-plugin": "4",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "webpack": "^4.45.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "koa": "^2.13.1"
   }
 }
