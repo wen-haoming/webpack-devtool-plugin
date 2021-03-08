@@ -4,7 +4,16 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "init":"lerna clean -y && yarn install",
+    "start:lib":"cd ./packages/vue-dist && npm run serve",
+    "build:lib":"node ./scripts/buildLib.js",
+    "start:demo":"cd ./packages/webpack-example && npm run start",
+    "pub": "lerna publish"
+  },
   "devDependencies": {
-    "lerna": "^3.22.1"
-  }
+    "lerna": "^3.22.1",
+    "shelljs": "^0.8.4"
+  },
+  "dependencies": {}
 }

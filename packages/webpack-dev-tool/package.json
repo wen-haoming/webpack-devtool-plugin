@@ -1,5 +1,5 @@
 {
-  "name": "webpack-dev-tool",
+  "name": "webpack-devtool-plugin",
   "version": "0.0.0",
   "description": "> TODO: description",
   "author": "wenhaoming <435203093@qq.com>",
@@ -11,7 +11,16 @@
     "test": "__tests__"
   },
   "files": [
+    "index.js",
     "lib"
+  ],
+  "peerDependencies": {
+    "webpack": "^4.0.0 || ^5.0.0"
+  },
+  "keywords": [
+    "webpack",
+    "plugin",
+    "webpack-devtool-plugin"
   ],
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
