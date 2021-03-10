@@ -1,33 +1,38 @@
+<script>
 import { defineComponent, ref } from "vue";
-import { Button, Modal, AutoComplete,message } from "ant-design-vue";
+import { Button, Modal, AutoComplete, message } from "ant-design-vue";
 import { SettingOutlined } from "@ant-design/icons-vue";
-import Cookie from 'js-cookie'
+import Cookie from "js-cookie";
 
 export default defineComponent({
   setup() {
     const visible = ref(false);
-    const domain = ref(Cookie.get('_domain'))
+    const domain = ref(Cookie.get("_domain"));
 
-    const options = ref(window._domains || [
-        // { value: "Burns Bay Road", },
-        // { value: "Downing Street" },
-        // { value: "Wall Street" },
-      ])
+    const options = ref(
+      window._domains ||
+        [
+          // { value: "Burns Bay Road", },
+          // { value: "Downing Street" },
+          // { value: "Wall Street" },
+        ]
+    );
 
-      const onChange = (val)=>{
-        domain.value = val
-      }
+    const onChange = (val) => {
+      domain.value = val;
+    };
 
-    const onOk = ()=>{
-        visible.value = false
-        Cookie.set('_domain',domain.value)
-        message.success('设置成功')
-    }
+    const onOk = () => {
+      visible.value = false;
+      Cookie.set("_domain", domain.value);
+      message.success("设置成功");
+    };
 
     return () => {
       return (
         <>
           <Button
+            class="btn"
             type="primary"
             style={{
               width: "40px",
@@ -37,7 +42,9 @@ export default defineComponent({
               alignItems: "center",
               position: "fixed",
               left: "0px",
-              bottom: "100px",
+              bottom: "5px",
+              opacity:'0.7',
+              padding:'0px'
             }}
             onClick={() => (visible.value = true)}
           >
@@ -59,17 +66,10 @@ export default defineComponent({
               placeholder="input or select"
               onChange={onChange}
             ></AutoComplete>
-            {/* <Select style={{ width: "200px" }}>
-              <Select.Option value="jack">Jack</Select.Option>
-              <Select.Option value="lucy">Lucy</Select.Option>
-              <Select.Option value="disabled" disabled>
-                Disabled
-              </Select.Option>
-              <Select.Option value="Yiminghe">yiminghe</Select.Option>
-            </Select> */}
           </Modal>
         </>
       );
     };
   },
 });
+</script>

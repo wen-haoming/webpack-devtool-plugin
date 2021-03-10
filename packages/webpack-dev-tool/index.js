@@ -5,7 +5,8 @@ const resolve = (src) => path.resolve(__dirname, src);
 
 class DevToolsPlugin {
   constructor(options) {
-    this.options = options;
+    this.options = options
+    this.options.proxyArr = this.options.proxyArr || []
   }
   apply(compiler) {
     let self = this;
@@ -13,6 +14,7 @@ class DevToolsPlugin {
     if(!compiler.options.devServer){
       compiler.options.devServer = {}
     }
+
     compiler.options.devServer.proxy = {
       context: "/",
       target: "/",
@@ -33,27 +35,24 @@ class DevToolsPlugin {
       },
     }
 
-    compiler.hooks.emit.tapAsync("FileListPlugin", (compilation, callback) => {
+    compiler.hooks.emit.tapAsync("FilePlugin", (compilation, callback) => {
       // Create a header string for the generated file:
       const rootPath = resolve('./lib');
-      let htmlContent = compilation.assets["index.html"].source();
 
-      compilation.assets["index.html"] = {
-        source: function() {
-          htmlContent += fs.readFileSync(
-            path.resolve(__dirname, "./lib/index.html"),
-            "utf-8"
-          );
-          htmlContent = htmlContent.replace(
-            /\{\{_domains\}\}/g,
-            JSON.stringify(self.options.proxyArr)
-          );
-          return htmlContent;
-        },
-        size: function() {
-          return htmlContent.length;
-        },
-      };
+      HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync(
+          'HtmlWebpackPlugin',
+          (data, cb) => {
+            data.html += fs.readFileSync(
+                path.resolve(__dirname, "./lib/index.html"),
+                "utf-8"
+            );
+            data.html = data.html.replace(
+                /\{\{_domains\}\}/g,
+                JSON.stringify(self.options.proxyArr)
+            );
+            cb(null, data)
+          }
+      )
 
       const dirs = fs.readdirSync(rootPath);
       dirs.forEach((dir) => {

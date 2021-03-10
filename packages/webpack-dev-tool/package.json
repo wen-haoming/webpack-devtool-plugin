@@ -1,6 +1,6 @@
 {
   "name": "webpack-devtool-plugin",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "> TODO: description",
   "author": "wenhaoming <435203093@qq.com>",
   "homepage": "",
@@ -15,7 +15,12 @@
     "lib"
   ],
   "peerDependencies": {
-    "webpack": "^4.0.0 || ^5.0.0"
+    "webpack": "^4.0.0 || ^5.0.0",
+    "html-webpack-plugin": "^4.0.0 || ^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wen-haoming/webpack-devtool-plugin"
   },
   "keywords": [
     "webpack",
