@@ -36,7 +36,6 @@ class DevToolsPlugin {
     }
 
     compiler.hooks.emit.tapAsync("FilePlugin", (compilation, callback) => {
-      // Create a header string for the generated file:
       const rootPath = resolve('./lib');
 
       HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync(
