@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to webpack-devtool-plugin 👋</h1>
+<h1 align="center">webpack-devtool-plugin  👋</h1>
 <p>
   <a href="https://www.npmjs.com/package/webpack-devtool-plugin" target="_blank">
     <img alt="Version" src="https://img.shields.io/npm/v/webpack-devtool-plugin.svg">
