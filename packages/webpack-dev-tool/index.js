@@ -1,4 +1,3 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const fs = require("fs");
 const resolve = (src) => path.resolve(__dirname, src);
@@ -35,23 +34,26 @@ class DevToolsPlugin {
       },
     }
 
-    compiler.hooks.emit.tapAsync("FilePlugin", (compilation, callback) => {
+    compiler.hooks.emit.tapAsync("FilePlugin", (compilation) => {
       const rootPath = resolve('./lib');
+      let htmlContent = compilation.assets["index.html"].source();
 
-      HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync(
-          'HtmlWebpackPlugin',
-          (data, cb) => {
-            data.html += fs.readFileSync(
-                path.resolve(__dirname, "./lib/index.html"),
-                "utf-8"
-            );
-            data.html = data.html.replace(
-                /\{\{_domains\}\}/g,
-                JSON.stringify(self.options.proxyArr)
-            );
-            cb(null, data)
-          }
-      )
+      compilation.assets["index.html"] = {
+        source: function() {
+          htmlContent += fs.readFileSync(
+              path.resolve(__dirname, "./lib/index.html"),
+              "utf-8"
+          );
+          htmlContent = htmlContent.replace(
+              /\{\{_domains\}\}/g,
+              JSON.stringify(self.options.proxyArr)
+          );
+          return htmlContent;
+        },
+        size: function() {
+          return htmlContent.length;
+        },
+      };
 
       const dirs = fs.readdirSync(rootPath);
       dirs.forEach((dir) => {
@@ -74,8 +76,6 @@ class DevToolsPlugin {
           }
         }
       });
-
-      callback();
     });
   }
 }
