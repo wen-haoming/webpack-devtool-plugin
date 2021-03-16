@@ -1,38 +1,49 @@
-
-<div align="center">
-  <a href="https://github.com/webpack/webpack">
-    <img width="200" height="200" src="https://cdn.nlark.com/yuque/0/2021/svg/276215/1615218808621-a8286af2-4916-43e9-bbc5-5d3c42024544.svg">
+<h1 align="center">Welcome to webpack-devtool-plugin 👋</h1>
+<p>
+  <a href="https://www.npmjs.com/package/webpack-devtool-plugin" target="_blank">
+    <img alt="Version" src="https://img.shields.io/npm/v/webpack-devtool-plugin.svg">
   </a>
-<br>
-<br>
-
-[![npm][npm]][npm-url]
-[![node][node]][node-url]
-</div>
-
-# webpack-devtool-plugin
-
-Help developers switch agents Online
-
+  <img src="https://img.shields.io/badge/npm-%3E%3D5.5.0-blue.svg" />
+  <img src="https://img.shields.io/badge/node-%3E%3D9.3.0-blue.svg" />
+  <a href="https://github.com/wen-haoming/webpack-devtool-plugin#readme" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+  <a href="https://github.com/wen-haoming/webpack-devtool-plugin/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+  </a>
+  <a href="https://github.com/wen-haoming/webpack-devtool-plugin/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/github/license/wen-haoming/webpack-devtool-plugin" />
+  </a>
+</p>
 
 <div align="left">
   <a href="https://github.com/webpack/webpack">
     <img width="600" src="https://cdn.nlark.com/yuque/0/2021/gif/276215/1615218548593-4bc692d6-948a-4f12-a38d-cb6f52d938b5.gif">
   </a>
+ </div>
 <br>
 
-# install
-```bash
+
+> Help developers switch agents Online
+
+### 🏠 [Homepage](https://github.com/wen-haoming/webpack-devtool-plugin)
+
+## Prerequisites
+
+- npm >=5.5.0
+- node >=9.3.0
+
+## Install
+
+```sh
 npm install webpack-devtool-plugin -D
 ```
 
-# usage
-`webpack.config.js`
+## usage
 
 ```diff
-
- plugins: [
-+  new DevToolsPlugin({
+  plugins: [
++ new DevToolsPlugin({
 +     proxyArr: [
 +       { value: "http://a.com" },
 +       { value: "http://b.com" },
@@ -41,6 +52,7 @@ npm install webpack-devtool-plugin -D
 + }),
   ],
 ```
+
 # options
 | **Name** | Type | value |
 | :---: | :---: | :---: |
@@ -48,9 +60,25 @@ npm install webpack-devtool-plugin -D
 
 
 
+## Author
 
-[npm]: https://img.shields.io/npm/v/webpack.svg
-[npm-url]: https://npmjs.com/package/webpack
-[node]: https://img.shields.io/node/v/webpack.svg
-[node-url]: https://nodejs.org
+👤 **wenhaoming <435203093@qq.com>**
 
+* Website: http://whm.zone
+* Github: [@wen-haoming](https://github.com/wen-haoming)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/wen-haoming/webpack-devtool-plugin/issues). You can also take a look at the [contributing guide](https://github.com/wen-haoming/webpack-devtool-plugin/blob/master/CONTRIBUTING.md).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Copyright © 2021 [wenhaoming <435203093@qq.com>](https://github.com/wen-haoming).<br />
+This project is [MIT](https://github.com/wen-haoming/webpack-devtool-plugin/blob/master/LICENSE) licensed.
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
