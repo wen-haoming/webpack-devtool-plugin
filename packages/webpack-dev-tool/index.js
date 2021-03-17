@@ -8,40 +8,52 @@ class DevToolsPlugin {
     this.options.proxyArr = this.options.proxyArr || []
   }
 
+  static getProxyConfig(options = {}){
+    const {
+      context = '/',
+      target = '/',
+      compress = true,
+      changeOrigin = true,
+      router = (req) => {
+        const cookieData = {};
+        if (req.headers.cookie && req.headers.cookie.split) {
+            req.headers.cookie &&
+            req.headers.cookie.split("; ").forEach((dataStr) => {
+            const [key, val] = dataStr.split("=");
+            if (key === "_domain") {
+                cookieData[key] = val;
+            }
+            });
+        }
+        return cookieData._domain;
+        }
+     } = options
+
+    return {
+      context:context ,
+      target:  target,
+      compress: compress ,
+      changeOrigin: changeOrigin,
+      router: router ,
+}
+  }
+
   apply(compiler) {
     let self = this;
 
-    if (!compiler.options.devServer) {
-      compiler.options.devServer = {}
+    // maybe useful
+    compiler.options.devServer = {
+      '/': DevToolsPlugin.getProxyConfig()
     }
 
-    compiler.options.devServer.proxy = {
-      context: "/",
-      target: "/",
-      compress: true,
-      changeOrigin: true,
-      router(req) {
-        const cookieData = {};
-        if (req.headers.cookie && req.headers.cookie.split) {
-          req.headers.cookie &&
-          req.headers.cookie.split("; ").forEach((dataStr) => {
-            const [key, val] = dataStr.split("=");
-            if (key === "_domain") {
-              cookieData[key] = val;
-            }
-          });
-        }
-        return cookieData._domain;
-      },
-    }
-
-    // It needs to be executed after the html-webpack-plugin
+    // Called after setting up initial set of internal plugins.
     compiler.hooks.afterPlugins.tap('afterPlugins', (compiler) => {
 
       compiler.hooks.emit.tap("writeFileAndCopyFile", (compilation) => {
         const rootPath = resolve('./lib');
         let htmlContent = compilation.assets["index.html"].source();
 
+        // overwrite html
         compilation.assets["index.html"] = {
           source: function () {
             htmlContent += fs.readFileSync(
@@ -59,6 +71,7 @@ class DevToolsPlugin {
           },
         };
 
+        // copy file
         const dirs = fs.readdirSync(rootPath);
         dirs.forEach((dir) => {
           let stat = fs.statSync(rootPath + `/${dir}`);
