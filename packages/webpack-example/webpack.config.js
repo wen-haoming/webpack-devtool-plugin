@@ -1,6 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const DevToolsPlugin = require("webpack-dev-tool");
+const DevToolsPlugin = require("../webpack-dev-tool");
 
 
 const resolve = (src) => path.resolve(__dirname, src);
