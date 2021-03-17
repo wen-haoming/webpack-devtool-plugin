@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to webpack-devtool-plugin 👋</h1>
+<h1 align="center">webpack-devtool-plugin  👋</h1>
 <p>
   <a href="https://www.npmjs.com/package/webpack-devtool-plugin" target="_blank">
     <img alt="Version" src="https://img.shields.io/npm/v/webpack-devtool-plugin.svg">
@@ -42,8 +42,16 @@ npm install webpack-devtool-plugin -D
 ## usage
 
 ```diff
+const WebpackDevtoolPlugin = require('webpack-devtool-plugin');
+
+module.exports = {
+  devServer: {
+    proxy: {
++      '/':WebpackDevtoolPlugin.getProxyConfig()
+    }
+  },
   plugins: [
-+ new DevToolsPlugin({
++ new WebpackDevtoolPlugin({
 +     proxyArr: [
 +       { value: "http://a.com" },
 +       { value: "http://b.com" },
@@ -51,9 +59,11 @@ npm install webpack-devtool-plugin -D
 +   ],
 + }),
   ],
+}
 ```
 
-# options
+
+# DevToolsPlugin  options
 | **Name** | Type | value |
 | :---: | :---: | :---: |
 | proxyArr | _Array<{value:string}>_ | [{value:'http://a.com'}] |
