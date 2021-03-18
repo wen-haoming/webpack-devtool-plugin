@@ -41,6 +41,7 @@ npm install webpack-devtool-plugin -D
 
 ## usage
 
+## Use in webpack.config.js
 ```diff
 const WebpackDevtoolPlugin = require('webpack-devtool-plugin');
 
@@ -60,6 +61,30 @@ module.exports = {
 + }),
   ],
 }
+```
+
+## Use in vue
+
+```js
+// vue.config.js
+ const CopyWebpackPlugin = require("webpack-devtool-plugin")
+
+module.exports = {
+    devServer:{
+        proxy:{
+          "/": CopyWebpackPlugin.getProxyConfig()
+        }
+    },
+    configureWebpack:{
+        plugins: [
+            new CopyWebpackPlugin({
+                proxyArr:[{
+                    value:'http://localhost:3001'
+                }]
+            })
+        ]},
+}
+
 ```
 
 
