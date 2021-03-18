@@ -1,14 +1,18 @@
 <script>
-import { defineComponent,ref } from "vue";
+import { defineComponent, ref } from "vue";
 import { Button, Modal, AutoComplete, message } from "ant-design-vue";
 import { SettingOutlined } from "@ant-design/icons-vue";
 import Cookie from "js-cookie";
+
+// 初始化设置本地cookie
+Cookie.set('_domain',Cookie.get("_domain")|| window.location.origin)
 
 export default defineComponent({
   setup() {
     const visible = ref(false);
 
-    const domain = ref(Cookie.get("_domain"));
+    const domain = ref(Cookie.get("_domain")|| window.location.origin);
+
     const options = ref(
       window._domains ||
         [
@@ -28,7 +32,21 @@ export default defineComponent({
       message.success("设置成功");
     };
 
+    const onCancel = () => {
+      visible.value = false;
+    };
+
     return () => {
+
+      const Footer = (
+        <>
+          <Button onClick={onCancel}>close</Button>
+          <Button type="primary" disabled={!domain.value.length} onClick={onOk}>
+            confirm
+          </Button>
+        </>
+      );
+
       return (
         <>
           <Button
@@ -43,9 +61,9 @@ export default defineComponent({
               position: "fixed",
               left: "0px",
               bottom: "5px",
-              opacity:'0.7',
-              padding:'0px',
-              zIndex:100000
+              opacity: "0.7",
+              padding: "0px",
+              zIndex: 100000,
             }}
             onClick={() => (visible.value = true)}
           >
@@ -55,10 +73,8 @@ export default defineComponent({
             cancelText="close"
             okText="confirm"
             visible={visible.value}
-            onCancel={() => {
-              visible.value = false;
-            }}
-            onOk={onOk}
+            onCancel={onCancel}
+            footer={Footer}
           >
             <AutoComplete
               value={domain.value}
