@@ -43,7 +43,7 @@ npm install webpack-devtool-plugin -D
 
 ## Use in webpack.config.js
 ```diff
-const WebpackDevtoolPlugin = require('webpack-devtool-plugin');
++ const WebpackDevtoolPlugin = require('webpack-devtool-plugin');
 
 module.exports = {
   devServer: {
@@ -88,7 +88,7 @@ module.exports = {
 ```
 
 
-# DevToolsPlugin  options
+# WebpackDevtoolPlugin  options
 | **Name** | Type | value |
 | :---: | :---: | :---: |
 | proxyArr | _Array<{value:string}>_ | [{value:'http://a.com'}] |
@@ -101,10 +101,6 @@ module.exports = {
 
 * Website: http://whm.zone
 * Github: [@wen-haoming](https://github.com/wen-haoming)
-
-## 🤝 Contributing
-
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/wen-haoming/webpack-devtool-plugin/issues). You can also take a look at the [contributing guide](https://github.com/wen-haoming/webpack-devtool-plugin/blob/master/CONTRIBUTING.md).
 
 ## Show your support
 
