@@ -5,13 +5,12 @@ import { SettingOutlined } from "@ant-design/icons-vue";
 import Cookie from "js-cookie";
 
 // 初始化设置本地cookie
-Cookie.set('_domain',Cookie.get("_domain")|| window.location.origin)
 
 export default defineComponent({
   setup() {
     const visible = ref(false);
 
-    const domain = ref(Cookie.get("_domain")|| window.location.origin);
+    const domain = ref(Cookie.get("_domain"));
 
     const options = ref(
       window._domains ||
