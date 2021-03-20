@@ -30,6 +30,7 @@ class DevToolsPlugin {
      } = options
 
     return {
+      ...options,
       context:context ,
       target:  target,
       compress: compress ,
