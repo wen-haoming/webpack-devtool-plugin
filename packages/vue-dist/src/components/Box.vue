@@ -4,7 +4,8 @@ import { Button, Modal, AutoComplete, message } from "ant-design-vue";
 import { SettingOutlined } from "@ant-design/icons-vue";
 import Cookie from "js-cookie";
 
-// 初始化设置本地cookie
+// 设置本地cookie
+Cookie.set("_current_domain",window.location.origin)
 
 export default defineComponent({
   setup() {

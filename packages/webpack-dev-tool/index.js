@@ -25,7 +25,7 @@ class DevToolsPlugin {
             }
             });
         }
-        return cookieData._domain;
+        return cookieData._domain || cookieData._current_domain;
         }
      } = options
 
