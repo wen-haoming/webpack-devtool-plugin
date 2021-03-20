@@ -25,7 +25,7 @@ class DevToolsPlugin {
             }
             });
         }
-        return cookieData._domain || cookieData._current_domain;
+        return cookieData._domain || 'http://localhost:8080';
         }
      } = options
 
