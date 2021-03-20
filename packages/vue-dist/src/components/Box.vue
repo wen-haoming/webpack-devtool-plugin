@@ -28,7 +28,7 @@ export default defineComponent({
     const onOk = () => {
       visible.value = false;
       Cookie.set("_domain", domain.value);
-      message.success("设置成功");
+      message.success("success");
     };
 
     const onCancel = () => {
@@ -40,7 +40,7 @@ export default defineComponent({
       const Footer = (
         <>
           <Button onClick={onCancel}>close</Button>
-          <Button type="primary" disabled={!domain.value.length} onClick={onOk}>
+          <Button type="primary" disabled={!((domain.value||'').length)} onClick={onOk}>
             confirm
           </Button>
         </>

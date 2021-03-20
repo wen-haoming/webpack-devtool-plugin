@@ -11,9 +11,6 @@ module.exports = {
     path: resolve("dist"),
   },
   mode:'development',
-  devServer:{
-    port:9000
-  },
   module: {
     rules: [
       {

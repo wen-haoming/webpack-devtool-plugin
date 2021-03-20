@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "build": "webpack --progress --mode=production",
-    "start": "webpack serve --open"
+    "start": "webpack-dev-server"
   },
   "keywords": [],
   "author": "",
