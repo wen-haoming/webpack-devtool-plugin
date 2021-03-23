@@ -1,8 +1,6 @@
 import React from 'react'
 import {render} from 'react-dom'
-
 const App = ()=>{
-
     return <div >
         <button onClick={()=>{
             fetch('/api')
@@ -12,4 +10,3 @@ const App = ()=>{
     </div>
 }
 render(<App/>,document.getElementById('root'))
-console.log('123')

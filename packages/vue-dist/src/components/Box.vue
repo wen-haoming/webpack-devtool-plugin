@@ -1,14 +1,13 @@
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, watchEffect } from "vue";
 import { Button, Modal, AutoComplete, message } from "ant-design-vue";
 import { SettingOutlined } from "@ant-design/icons-vue";
-import Cookie from "js-cookie";
 
 export default defineComponent({
   setup() {
     const visible = ref(false);
 
-    const domain = ref(Cookie.get("_domain"));
+    const domain = ref(null);
 
     const options = ref(
       window._domains ||
@@ -19,26 +18,38 @@ export default defineComponent({
         ]
     );
 
-    const onChange = (val) => {
-      domain.value = val;
-    };
+    watchEffect(() => {
+      if (visible.value) {
+        fetch("/getCurrentUrl").then(res=>res.json()).then((res) => {
+          domain.value = res.currentUrl;
+        });
+      }
+    });
 
-    const onOk = () => {
-      visible.value = false;
-      Cookie.set("_domain", domain.value);
-      message.success("success");
-    };
-
-    const onCancel = () => {
-      visible.value = false;
+    const methods = {
+      onChange: (val) => {
+        domain.value = val;
+      },
+      onOk: () => {
+        visible.value = false;
+        fetch(`/changeCurrentUrl?currentUrl=${domain.value}`).then(()=>{
+             message.success("success");
+        });
+      },
+      onCancel: () => {
+        visible.value = false;
+      },
     };
 
     return () => {
-
       const Footer = (
         <>
-          <Button onClick={onCancel}>close</Button>
-          <Button type="primary" disabled={!((domain.value||'').length)} onClick={onOk}>
+          <Button onClick={methods.onCancel}>close</Button>
+          <Button
+            type="primary"
+            disabled={!(domain.value || "").length}
+            onClick={methods.onOk}
+          >
             confirm
           </Button>
         </>
@@ -70,7 +81,7 @@ export default defineComponent({
             cancelText="close"
             okText="confirm"
             visible={visible.value}
-            onCancel={onCancel}
+            onCancel={methods.onCancel}
             footer={Footer}
           >
             <AutoComplete
@@ -78,7 +89,7 @@ export default defineComponent({
               options={options.value}
               style="width: 200px"
               placeholder="input or select"
-              onChange={onChange}
+              onChange={methods.onChange}
             ></AutoComplete>
           </Modal>
         </>
