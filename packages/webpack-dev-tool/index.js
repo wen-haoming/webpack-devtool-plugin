@@ -32,7 +32,6 @@ class DevToolsPlugin {
         });
 
         app.get("/changeCurrentUrl", (req, res) => {
-          console.log('changeCurrentUrl',req.query.currentUrl)
           currentUrl = req.query.currentUrl;
           res.send({ currentUrl });
         });
@@ -43,12 +42,10 @@ class DevToolsPlugin {
         compress: true,
         changeOrigin: true,
         router(req) {
-          console.log('router--》',req.url)
-          for (let { name, value, isRewrite } of urlData) {
-            // if(new){
-            // }
-          }
-          console.log(currentUrl);
+          // for (let { name, value, isRewrite } of urlData) {
+          //   // if(new){
+          //   // }
+          // }
           return currentUrl;
         },
       },
