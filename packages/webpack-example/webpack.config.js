@@ -1,6 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const DevToolsPlugin = require("../webpack-dev-tool");
+const DevToolsPlugin = require("webpack-devtool-plugin");
 const NyanProgressPlugin = require('nyan-progress-webpack-plugin')  
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
@@ -15,7 +15,7 @@ module.exports = {
     filename: "[name].js",
     path: resolve("dist"),
   },
-  devServer:DevToolsPlugin.devServerConfig(),
+  // devServer:DevToolsPlugin.devServerConfig(),
   mode:'development',
   module: {
     rules: [
@@ -36,12 +36,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: resolve("./assets/index.html"),
     }),
-    new DevToolsPlugin({
-      proxyArr: [
-        { value: "http://a.com" },
-        { value: "http://b.com" },
-        { value: "http://c.com" },
-      ],
-    }),
+    // new DevToolsPlugin({
+    //   proxyArr: [
+    //     { value: "http://a.com" },
+    //     { value: "http://b.com" },
+    //     { value: "http://c.com" },
+    //   ],
+    // }),
   ],
 };

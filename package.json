@@ -5,7 +5,8 @@
     "packages/*"
   ],
   "scripts": {
-    "init":"lerna bootstrap --force-local",
+    "link":"lerna bootstrap",
+    "init":"rm -rf node_modules && npm install && npm run clean && npm run bootstrap",
     "start:lib":"cd ./packages/vue-dist && npm run serve",
     "build:lib":"node ./scripts/buildLib.js",
     "start:demo":"cd ./packages/webpack-example && npm run start",

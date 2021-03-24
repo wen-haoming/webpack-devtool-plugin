@@ -1,6 +1,6 @@
 <script>
 import { defineComponent, ref, watchEffect } from "vue";
-import { Button, Modal, AutoComplete, message } from "ant-design-vue";
+import { Button, Drawer, AutoComplete, message } from "ant-design-vue";
 import { SettingOutlined } from "@ant-design/icons-vue";
 
 export default defineComponent({
@@ -77,12 +77,14 @@ export default defineComponent({
           >
             <SettingOutlined style={{ fontSize: "30px" }} />
           </Button>
-          <Modal
-            cancelText="close"
-            okText="confirm"
+          <Drawer
+            width={300}
+            title="devtool"
             visible={visible.value}
-            onCancel={methods.onCancel}
+            onClose={methods.onCancel}
             footer={Footer}
+            placement="left"
+            style={{paddingBottom:'20px'}}
           >
             <AutoComplete
               value={domain.value}
@@ -91,7 +93,28 @@ export default defineComponent({
               placeholder="input or select"
               onChange={methods.onChange}
             ></AutoComplete>
-          </Modal>
+            <div
+             style={
+                {position:'absolute',
+                right: 0,
+                bottom: 0,
+                width: '100%',
+                borderTop: '1px solid #e9e9e9',
+                padding: '10px 16px',
+                background: '#fff',
+                textAlign: 'right',
+                zIndex: 1,}
+                 }
+          >
+            <Button  onClick={methods.onCancel}>close</Button>
+              <Button
+                style={{marginLeft:'30px'}}
+                type="primary"
+                disabled={!(domain.value || "").length}
+                onClick={methods.onOk}
+              >confirm</Button>
+            </div>
+          </Drawer>
         </>
       );
     };

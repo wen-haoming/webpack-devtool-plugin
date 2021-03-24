@@ -55,7 +55,6 @@ class DevToolsPlugin {
 
   apply(compiler) {
     let self = this;
-
     // maybe useful
     compiler.options.devServer  = DevToolsPlugin.devServerConfig()
 
