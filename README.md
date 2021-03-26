@@ -46,11 +46,7 @@ npm install webpack-devtool-plugin -D
 + const WebpackDevtoolPlugin = require('webpack-devtool-plugin');
 
 module.exports = {
-  devServer: {
-    proxy: {
-+      '/':WebpackDevtoolPlugin.getProxyConfig()
-    }
-  },
++ devServer:WebpackDevtoolPlugin.devServerConfig(),
   plugins: [
 + new WebpackDevtoolPlugin({
 +     proxyArr: [
