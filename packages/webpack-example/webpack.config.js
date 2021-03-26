@@ -15,7 +15,7 @@ module.exports = {
     filename: "[name].js",
     path: resolve("dist"),
   },
-  // devServer:DevToolsPlugin.devServerConfig(),
+  devServer:DevToolsPlugin.devServerConfig(),
   mode:'development',
   module: {
     rules: [
@@ -36,12 +36,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: resolve("./assets/index.html"),
     }),
-    // new DevToolsPlugin({
-    //   proxyArr: [
-    //     { value: "http://a.com" },
-    //     { value: "http://b.com" },
-    //     { value: "http://c.com" },
-    //   ],
-    // }),
+    new DevToolsPlugin({
+      proxyArr: [
+        { value: "http://a:2000" },
+        { value: "http://b:2000" },
+        { value: "http://c:2000" },
+      ],
+    }),
   ],
 };

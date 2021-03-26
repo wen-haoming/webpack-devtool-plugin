@@ -13,6 +13,7 @@
   "devDependencies": {
     "@babel/preset-react": "^7.12.13",
     "babel-loader": "^8.2.2",
+    "express": "^4.17.1",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "4",
     "nyan-progress-webpack-plugin": "^1.2.0",

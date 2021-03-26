@@ -46,6 +46,7 @@ class DevToolsPlugin {
           //   // if(new){
           //   // }
           // }
+          console.log(currentUrl)
           return currentUrl;
         },
       },

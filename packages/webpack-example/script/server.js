@@ -1,10 +1,16 @@
-const Koa = require('koa')
+const express = require('express')
 
-const app = new Koa()
+const app = express()
 
 
-app.use((ctx,next)=>{
-    ctx.body = ctx.req.url
-})
+app.get('/a', function (req, res) {
+    res.send('get a')
+  })
+  app.get('/b', function (req, res) {
+    res.send('get a')
+  })
+  app.get('/c', function (req, res) {
+    res.send('get a')
+  })
 
-app.listen('9001')
+  app.listen(2000)

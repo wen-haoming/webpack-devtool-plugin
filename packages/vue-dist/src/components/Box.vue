@@ -71,7 +71,7 @@ export default defineComponent({
               bottom: "5px",
               opacity: "0.7",
               padding: "0px",
-              zIndex: 100000,
+              zIndex: 100,
             }}
             onClick={() => (visible.value = true)}
           >
@@ -84,7 +84,9 @@ export default defineComponent({
             onClose={methods.onCancel}
             footer={Footer}
             placement="left"
-            style={{paddingBottom:'20px'}}
+            style={{paddingBottom:'20px',
+              zIndex: 1000
+            }}
           >
             <AutoComplete
               value={domain.value}
