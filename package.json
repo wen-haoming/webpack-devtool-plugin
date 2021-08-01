@@ -7,10 +7,11 @@
   "scripts": {
     "link":"lerna bootstrap",
     "init":"rm -rf node_modules && npm install && npm run clean && npm run bootstrap",
-    "start:lib":"cd ./packages/vue-dist && npm run serve",
+    "start:dev":"cd ./packages/dev-platform && npm run dev",
     "build:lib":"node ./scripts/buildLib.js",
     "start:demo":"cd ./packages/webpack-example && npm run start ",
-    "pub": "lerna publish"
+    "pub": "lerna publish",
+    "clean":"lerna clean"
   },
   "devDependencies": {
     "lerna": "^3.22.1",

@@ -42,6 +42,7 @@ npm install webpack-devtool-plugin -D
 ## usage
 
 ## Use in webpack.config.js
+
 ```diff
 + const WebpackDevtoolPlugin = require('webpack-devtool-plugin');
 
@@ -68,7 +69,7 @@ module.exports = {
 module.exports = {
     devServer:{
         proxy:{
-          "/": CopyWebpackPlugin.getProxyConfig()
+          "/": CopyWebpackPlugin.devServerConfig()
         }
     },
     configureWebpack:{
