@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Layout, Menu, Row, Col } from "antd";
-import { SettingOutlined,GlobalOutlined } from "@ant-design/icons";
+import { SettingOutlined,GlobalOutlined ,ThunderboltOutlined} from "@ant-design/icons";
+import HttpProxy from './components/HttpProxy'
 import {
   UploadOutlined,
   UserOutlined,
@@ -11,6 +12,8 @@ const { Header, Content, Footer, Sider } = Layout;
 
 const App = () => {
   const [visible, setVisible] = useState(false);
+  const [selectKey,setSelectKey] = useState('1')
+
   return (
     <>
       <Button
@@ -34,29 +37,25 @@ const App = () => {
        bodyStyle={{padding:0}}
        title="Dev plugin"
       >
-        <Row style={{height:500}}>
-          <Col span={4}>
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={["4"]} style={{height:'100%'}}>
+        <Row style={{minHeight:500}}>
+          <Col span={5}>
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={[selectKey]}  style={{height:'100%'}} onClick={({key})=>setSelectKey(key)}>
               <Menu.Item key="1" icon={<GlobalOutlined />}>
-                proxy
+                http proxy
               </Menu.Item>
-              <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-                nav 2
-              </Menu.Item>
-              <Menu.Item key="3" icon={<UploadOutlined />}>
-                nav 3
-              </Menu.Item>
-              <Menu.Item key="4" icon={<UserOutlined />}>
-                nav 4
+              <Menu.Item  disabled key="2" icon={<ThunderboltOutlined />}>
+                建设中...
               </Menu.Item>
             </Menu>
           </Col>
-          <Col span={20}>
+          <Col span={19}>
                 <div
                   className="site-layout-background"
                   style={{ padding: 24, height:'100%'}}
                 >
-                  content
+                    {
+                        selectKey === '1' && <HttpProxy/>
+                    }
                 </div>
           </Col>
         </Row>

@@ -64,17 +64,13 @@ module.exports = {
 
 ```js
 // vue.config.js
- const CopyWebpackPlugin = require("webpack-devtool-plugin")
+ const WebpackDevtoolPlugin = require("webpack-devtool-plugin")
 
 module.exports = {
-    devServer:{
-        proxy:{
-          "/": CopyWebpackPlugin.devServerConfig()
-        }
-    },
+    devServer:WebpackDevtoolPlugin.,
     configureWebpack:{
         plugins: [
-            new CopyWebpackPlugin({
+            new WebpackDevtoolPlugin({
                 proxyArr:[{
                     value:'http://localhost:3001'
                 }]

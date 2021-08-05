@@ -3,10 +3,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const DevToolsPlugin = require("webpack-devtool-plugin");
 const NyanProgressPlugin = require('nyan-progress-webpack-plugin')  
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
-
+const {  } = require('vite')
 
 const resolve = (src) => path.resolve(__dirname, src);
-
 
 module.exports = {
   stats: 'errors-only',
@@ -34,7 +33,7 @@ module.exports = {
     new FriendlyErrorsPlugin(),
     new NyanProgressPlugin(),
     new HtmlWebpackPlugin({
-      template: resolve("./assets/index.html"),
+      template: resolve("../dev-platform/index.html"),
     }),
     new DevToolsPlugin({
       proxyArr: [

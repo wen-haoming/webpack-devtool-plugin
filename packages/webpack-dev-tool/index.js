@@ -1,5 +1,7 @@
 const path = require("path");
 const fs = require("fs");
+const WebSocket = require('socket.io')
+
 const resolve = (src) => path.resolve(__dirname, src);
 
 let urlData = [
@@ -17,11 +19,28 @@ class DevToolsPlugin {
     this.options = options;
     this.options.proxyArr = this.options.proxyArr || urlData;
     urlData = this.options.proxyArr;
-
+    
     currentUrl = (this.options.proxyArr || [{ value: currentUrl }])[0].value;
   }
 
   static devServerConfig(options = {}) {
+
+    var ws = new WebSocket("wss://echo.websocket.org");
+
+      ws.onopen = function(evt) {
+        console.log("Connection open ...");
+        ws.send("Hello WebSockets!");
+      };
+      
+      ws.onmessage = function(evt) {
+        console.log( "Received Message: " + evt.data);
+        ws.close();
+      };
+      
+      ws.onclose = function(evt) {
+        console.log("Connection closed.");
+      }; 
+
     return {
       before(app, server, compiler) {
         app.get("/changeUrlData", (req, res) => {});
@@ -30,7 +49,7 @@ class DevToolsPlugin {
           console.log('getCurrentUrl')
           res.send({ currentUrl });
         });
-
+        
         app.get("/changeCurrentUrl", (req, res) => {
           currentUrl = req.query.currentUrl;
           res.send({ currentUrl });
@@ -42,10 +61,6 @@ class DevToolsPlugin {
         compress: true,
         changeOrigin: true,
         router(req) {
-          // for (let { name, value, isRewrite } of urlData) {
-          //   // if(new){
-          //   // }
-          // }
           console.log(currentUrl)
           return currentUrl;
         },
@@ -56,57 +71,57 @@ class DevToolsPlugin {
 
   apply(compiler) {
     let self = this;
-    // maybe useful
-    compiler.options.devServer  = DevToolsPlugin.devServerConfig()
-
+    // maybe useful 
+    // compiler.options.devServer  = DevToolsPlugin.devServerConfig()
+    
     // Called after setting up initial set of internal plugins.
-    compiler.hooks.afterPlugins.tap("afterPlugins", (compiler) => {
-      compiler.hooks.emit.tap("writeFileAndCopyFile", (compilation) => {
-        const rootPath = resolve("./lib");
-        let htmlContent = compilation.assets["index.html"].source();
+    // compiler.hooks.afterPlugins.tap("afterPlugins", (compiler) => {
+    //   compiler.hooks.emit.tap("writeFileAndCopyFile", (compilation) => {
+    //     const rootPath = resolve("./lib");
+    //     let htmlContent = compilation.assets["index.html"].source();
 
-        // overwrite html
-        compilation.assets["index.html"] = {
-          source: function() {
-            htmlContent += fs.readFileSync(
-              path.resolve(__dirname, "./lib/index.html"),
-              "utf-8"
-            );
-            htmlContent = htmlContent.replace(
-              /\{\{_domains\}\}/g,
-              JSON.stringify(self.options.proxyArr)
-            );
-            return htmlContent;
-          },
-          size: function() {
-            return htmlContent.length;
-          },
-        };
+    //     // overwrite html
+    //     compilation.assets["index.html"] = {
+    //       source: function() {
+    //         htmlContent += fs.readFileSync(
+    //           path.resolve(__dirname, "./lib/index.html"),
+    //           "utf-8"
+    //         );
+    //         htmlContent = htmlContent.replace(
+    //           /\{\{_domains\}\}/g,
+    //           JSON.stringify(self.options.proxyArr)
+    //         );
+    //         return htmlContent;
+    //       },
+    //       size: function() {
+    //         return htmlContent.length;
+    //       },
+    //     };
 
-        // copy file
-        const dirs = fs.readdirSync(rootPath);
-        dirs.forEach((dir) => {
-          let stat = fs.statSync(rootPath + `/${dir}`);
-          if (stat.isDirectory()) {
-            const tarDirs = fs.readdirSync(rootPath + `/${dir}`);
-            for (const file of tarDirs) {
-              let content = fs.readFileSync(
-                rootPath + `/${dir}/${file}`,
-                "utf-8"
-              );
-              compilation.assets[`${dir}/${file}`] = {
-                source: function() {
-                  return content;
-                },
-                size: function() {
-                  return content.length;
-                },
-              };
-            }
-          }
-        });
-      });
-    });
+    //     // copy file
+    //     const dirs = fs.readdirSync(rootPath);
+    //     dirs.forEach((dir) => {
+    //       let stat = fs.statSync(rootPath + `/${dir}`);
+    //       if (stat.isDirectory()) {
+    //         const tarDirs = fs.readdirSync(rootPath + `/${dir}`);
+    //         for (const file of tarDirs) {
+    //           let content = fs.readFileSync(
+    //             rootPath + `/${dir}/${file}`,
+    //             "utf-8"
+    //           );
+    //           compilation.assets[`${dir}/${file}`] = {
+    //             source: function() {
+    //               return content;
+    //             },
+    //             size: function() {
+    //               return content.length;
+    //             },
+    //           };
+    //         }
+    //       }
+    //     });
+    //   });
+    // });
   }
 }
 

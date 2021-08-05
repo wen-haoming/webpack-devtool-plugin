@@ -8,6 +8,7 @@
     "link":"lerna bootstrap",
     "init":"rm -rf node_modules && npm install && npm run clean && npm run bootstrap",
     "start:dev":"cd ./packages/dev-platform && npm run dev",
+    "build:dev":"cd ./packages/dev-platform && npm run build",
     "build:lib":"node ./scripts/buildLib.js",
     "start:demo":"cd ./packages/webpack-example && npm run start ",
     "pub": "lerna publish",
