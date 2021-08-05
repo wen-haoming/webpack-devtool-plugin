@@ -5,18 +5,33 @@
     "packages/*"
   ],
   "scripts": {
-    "link":"lerna bootstrap",
-    "init":"rm -rf node_modules && npm install && npm run clean && npm run bootstrap",
-    "start:dev":"cd ./packages/dev-platform && npm run dev",
-    "build:dev":"cd ./packages/dev-platform && npm run build",
-    "build:lib":"node ./scripts/buildLib.js",
-    "start:demo":"cd ./packages/webpack-example && npm run start ",
+    "link": "lerna bootstrap",
+    "init": "rm -rf node_modules && npm install && npm run clean && npm run bootstrap",
+    "start:dev": "cd ./packages/dev-platform && npm run dev",
+    "build:dev": "cd ./packages/dev-platform && npm run build",
+    "build:lib": "node ./scripts/buildLib.js",
+    "start:demo": "cd ./packages/webpack-example && npm run start ",
     "pub": "lerna publish",
-    "clean":"lerna clean"
+    "clean": "lerna clean",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx  --fix --format=pretty ./packages ",
+    "prettier": "prettier --write ./packages",
+    "lint:prettier": "npm run prettier && prettier --version && prettier --check \"packages/**/**.{js,jsx,tsx,ts,less}\""
+  },
+  "gitHooks": {
+    "pre-commit": "pretty-quick --staged && npm run lint:prettier",
+    "commit-msg": "fabric verify-commit"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json,ts,tsx}": [
+      "lint"
+    ]
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
     "lerna": "^3.22.1",
-    "shelljs": "^0.8.4"
-  },
-  "dependencies": {}
+    "prettier": "^2.2.0",
+    "pretty-quick": "^3.1.1",
+    "shelljs": "^0.8.4",
+    "@umijs/fabric": "^2.6.2"
+  }
 }

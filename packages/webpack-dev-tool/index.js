@@ -1,56 +1,55 @@
-const path = require("path");
-const fs = require("fs");
-const WebSocket = require('socket.io')
+const path = require('path');
+const fs = require('fs');
+const WebSocket = require('socket.io');
 
 const resolve = (src) => path.resolve(__dirname, src);
 
 let urlData = [
   {
-    name: "",
-    value: "",
+    name: '',
+    value: '',
     isRewrite: false,
   },
 ];
 
-let currentUrl = "http://localhost:80";
+let currentUrl = 'http://localhost:80';
 
 class DevToolsPlugin {
   constructor(options) {
     this.options = options;
     this.options.proxyArr = this.options.proxyArr || urlData;
     urlData = this.options.proxyArr;
-    
+
     currentUrl = (this.options.proxyArr || [{ value: currentUrl }])[0].value;
   }
 
   static devServerConfig(options = {}) {
+    var ws = new WebSocket('wss://echo.websocket.org');
 
-    var ws = new WebSocket("wss://echo.websocket.org");
+    ws.onopen = function (evt) {
+      console.log('Connection open ...');
+      ws.send('Hello WebSockets!');
+    };
 
-      ws.onopen = function(evt) {
-        console.log("Connection open ...");
-        ws.send("Hello WebSockets!");
-      };
-      
-      ws.onmessage = function(evt) {
-        console.log( "Received Message: " + evt.data);
-        ws.close();
-      };
-      
-      ws.onclose = function(evt) {
-        console.log("Connection closed.");
-      }; 
+    ws.onmessage = function (evt) {
+      console.log('Received Message: ' + evt.data);
+      ws.close();
+    };
+
+    ws.onclose = function (evt) {
+      console.log('Connection closed.');
+    };
 
     return {
       before(app, server, compiler) {
-        app.get("/changeUrlData", (req, res) => {});
+        app.get('/changeUrlData', (req, res) => {});
 
-        app.get("/getCurrentUrl", (req, res) => {
-          console.log('getCurrentUrl')
+        app.get('/getCurrentUrl', (req, res) => {
+          console.log('getCurrentUrl');
           res.send({ currentUrl });
         });
-        
-        app.get("/changeCurrentUrl", (req, res) => {
+
+        app.get('/changeCurrentUrl', (req, res) => {
           currentUrl = req.query.currentUrl;
           res.send({ currentUrl });
         });
@@ -61,7 +60,7 @@ class DevToolsPlugin {
         compress: true,
         changeOrigin: true,
         router(req) {
-          console.log(currentUrl)
+          console.log(currentUrl);
           return currentUrl;
         },
       },
@@ -71,9 +70,9 @@ class DevToolsPlugin {
 
   apply(compiler) {
     let self = this;
-    // maybe useful 
+    // maybe useful
     // compiler.options.devServer  = DevToolsPlugin.devServerConfig()
-    
+
     // Called after setting up initial set of internal plugins.
     // compiler.hooks.afterPlugins.tap("afterPlugins", (compiler) => {
     //   compiler.hooks.emit.tap("writeFileAndCopyFile", (compilation) => {

@@ -1,4 +1,3 @@
-const SockJSServer = require('./SockJSServer')
+const SockJSServer = require('./SockJSServer');
 
-
-exports.SockJSServer = SockJSServer
+exports.SockJSServer = SockJSServer;

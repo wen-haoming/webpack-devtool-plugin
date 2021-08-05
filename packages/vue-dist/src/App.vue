@@ -1,18 +1,16 @@
 <template>
-  <Box/>
+  <Box />
 </template>
 
 <script>
-import Box from './components/Box'
+import Box from './components/Box';
 
 export default {
   name: 'App',
   components: {
-    Box
-  }
-}
+    Box,
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

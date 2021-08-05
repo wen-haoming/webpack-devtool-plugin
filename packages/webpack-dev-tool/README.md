@@ -23,7 +23,6 @@
  </div>
 <br>
 
-
 > Help developers switch agents Online
 
 ### 🏠 [Homepage](https://github.com/wen-haoming/webpack-devtool-plugin)
@@ -42,6 +41,7 @@ npm install webpack-devtool-plugin -D
 ## usage
 
 ## Use in webpack.config.js
+
 ```diff
 + const WebpackDevtoolPlugin = require('webpack-devtool-plugin');
 
@@ -63,40 +63,40 @@ module.exports = {
 
 ```js
 // vue.config.js
- const CopyWebpackPlugin = require("webpack-devtool-plugin")
+const CopyWebpackPlugin = require('webpack-devtool-plugin');
 
 module.exports = {
-    devServer:{
-        proxy:{
-          "/": CopyWebpackPlugin.getProxyConfig()
-        }
+  devServer: {
+    proxy: {
+      '/': CopyWebpackPlugin.getProxyConfig(),
     },
-    configureWebpack:{
-        plugins: [
-            new CopyWebpackPlugin({
-                proxyArr:[{
-                    value:'http://localhost:3001'
-                }]
-            })
-        ]},
-}
-
+  },
+  configureWebpack: {
+    plugins: [
+      new CopyWebpackPlugin({
+        proxyArr: [
+          {
+            value: 'http://localhost:3001',
+          },
+        ],
+      }),
+    ],
+  },
+};
 ```
 
+# WebpackDevtoolPlugin options
 
-# WebpackDevtoolPlugin  options
-| **Name** | Type | value |
-| :---: | :---: | :---: |
+| **Name** |          Type           |          value           |
+| :------: | :---------------------: | :----------------------: |
 | proxyArr | _Array<{value:string}>_ | [{value:'http://a.com'}] |
-
-
 
 ## Author
 
 👤 **wenhaoming <435203093@qq.com>**
 
-* Website: http://whm.zone
-* Github: [@wen-haoming](https://github.com/wen-haoming)
+- Website: http://whm.zone
+- Github: [@wen-haoming](https://github.com/wen-haoming)
 
 ## Show your support
 
@@ -104,8 +104,8 @@ Give a ⭐️ if this project helped you!
 
 ## 📝 License
 
-Copyright © 2021 [wenhaoming <435203093@qq.com>](https://github.com/wen-haoming).<br />
-This project is [MIT](https://github.com/wen-haoming/webpack-devtool-plugin/blob/master/LICENSE) licensed.
+Copyright © 2021 [wenhaoming <435203093@qq.com>](https://github.com/wen-haoming).<br /> This project is [MIT](https://github.com/wen-haoming/webpack-devtool-plugin/blob/master/LICENSE) licensed.
 
-***
+---
+
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

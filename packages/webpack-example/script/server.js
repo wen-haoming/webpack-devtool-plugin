@@ -1,16 +1,15 @@
-const express = require('express')
+const express = require('express');
 
-const app = express()
-
+const app = express();
 
 app.get('/a', function (req, res) {
-    res.send('get a')
-  })
-  app.get('/b', function (req, res) {
-    res.send('get a')
-  })
-  app.get('/c', function (req, res) {
-    res.send('get a')
-  })
+  res.send('get a');
+});
+app.get('/b', function (req, res) {
+  res.send('get a');
+});
+app.get('/c', function (req, res) {
+  res.send('get a');
+});
 
-  app.listen(2000)
+app.listen(2000);
