@@ -18,7 +18,7 @@
     "lint:prettier": "npm run prettier && prettier --version && prettier --check \"packages/**/**.{js,jsx,tsx,ts,less}\""
   },
   "gitHooks": {
-    "pre-commit": "pretty-quick --staged && npm run lint:prettier",
+    "pre-commit": "npm run lint:prettier",
     "commit-msg": "fabric verify-commit"
   },
   "lint-staged": {
@@ -27,11 +27,14 @@
     ]
   },
   "devDependencies": {
+    "@umijs/fabric": "^2.6.2",
     "eslint": "^7.32.0",
     "lerna": "^3.22.1",
     "prettier": "^2.2.0",
     "pretty-quick": "^3.1.1",
-    "shelljs": "^0.8.4",
-    "@umijs/fabric": "^2.6.2"
+    "shelljs": "^0.8.4"
+  },
+  "dependencies": {
+    "@umijs/yorkie": "^2.0.5"
   }
 }

@@ -32,6 +32,7 @@ const App = () => {
         width={800}
         bodyStyle={{ padding: 0 }}
         title="Dev plugin"
+        destroyOnClose
       >
         <Row style={{ minHeight: 500 }}>
           <Col span={5}>
